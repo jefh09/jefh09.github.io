@@ -1,1 +1,121 @@
+/* Algemene reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+/* Body styling */
+body {
+    font-family: 'Courier New', monospace; /* hacker font */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center; /* horizontaal centreren */
+    align-items: center;     /* verticaal centreren */
+    background: black;
+    color: #00ff88;
+}
+
+/* Level backgrounds */
+.level1-body { background: radial-gradient(circle,#111,#000); color: #00ff88; }
+.level2-body { background: radial-gradient(circle,#001f3f,#000814); color: #00bfff; }
+.level3-body { background: black; color: #00ff00; }
+.level4-body { background:#001122; color:#00ffff; }
+.level5-body { background:#220022; color:#ff66ff; }
+
+/* Container box */
+.container {
+    padding:50px;
+    border-radius:12px;
+    width:100%;
+    max-width:600px;
+    text-align:center;
+    background:#0f0f0f;
+    box-shadow:0 0 30px rgba(0,255,136,0.2);
+}
+
+/* Level glow */
+.level1 { box-shadow:0 0 40px rgba(0,255,136,0.4);}
+.level2 { box-shadow:0 0 40px rgba(0,191,255,0.4);}
+.level3 { box-shadow:0 0 40px rgba(0,255,0,0.4);}
+.level4 { box-shadow:0 0 40px rgba(0,255,255,0.4);}
+.level5 { box-shadow:0 0 40px rgba(255,0,255,0.4); }
+
+/* Titel animatie */
+h1 { margin-bottom:20px; letter-spacing:3px; animation:glow 2s infinite; }
+@keyframes glow {
+    0%{ text-shadow:0 0 5px currentColor; }
+    50%{ text-shadow:0 0 20px currentColor; }
+    100%{ text-shadow:0 0 5px currentColor; }
+}
+
+/* Encrypted text */
+.encrypted { font-size:28px; margin:25px 0; letter-spacing:5px; color:inherit; }
+
+/* Input fields */
+input {
+    width:80%;
+    padding:12px;
+    margin-top:15px;
+    border-radius:6px;
+    background:#111;
+    font-size:16px;
+    outline:none;
+    border:1px solid #00ff88;
+    color:#00ff88;
+}
+input::placeholder { color:#008855; }
+
+/* Buttons */
+button {
+    margin-top:15px;
+    padding:10px 20px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:all 0.2s ease;
+    background:#00ff88;
+    color:black;
+}
+.level2 button { background:#00bfff; }
+.level3 button { background:black; color:#00ff00; border:1px solid #00ff00; }
+.level4 button { background:#00ffff; color:black; }
+.level5 button { background:#ff66ff; color:black; }
+button:hover { transform:scale(1.05); box-shadow:0 0 10px currentColor; }
+
+/* Result messages */
+.success { margin-top:20px; color:#00ff88; font-weight:bold; }
+.error { margin-top:20px; color:#ff4444; font-weight:bold; }
+
+/* Hint box */
+#hintBox, #hintBox2, #hintBox3, #hintBox4, #hintBox5 {
+    margin-top:15px;
+    padding:15px;
+    background:#001100;
+    border:1px solid #00ff88;
+    border-radius:6px;
+    max-height:200px;
+    overflow:auto;
+    text-align:left;
+}
+.hidden { display:none; }
+
+/* Arrow */
+.arrow {
+    display:inline-block;
+    margin-top:30px;
+    font-size:40px;
+    text-decoration:none;
+    animation:pulse 1.5s infinite;
+    color:inherit;
+    cursor:pointer;
+    pointer-events:none; /* niet klikbaar totdat correct */
+}
+.arrow.visible { pointer-events:auto; }
+@keyframes pulse {0%{transform:translateX(0)}50%{transform:translateX(10px)}100%{transform:translateX(0);}}
+
+/* End screen */
+.end-screen { text-align:center; }
+.end-screen h1 { font-size:50px; margin-bottom:20px; color:#00ff88; text-shadow:0 0 15px #00ff88; }
+.end-screen p { font-size:20px; margin:10px 0; }
