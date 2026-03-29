@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="nl">
 
+<head>
+<meta charset="UTF-8">
+<title>Level 5</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="level5-body">
+
+<div class="container level5">
+    <h1>🏁 FINAL LEVEL</h1>
+    <p class="encrypted">ki neb tsanpton</p> <!-- Anagram van "ik ben ontsnapt" -->
+
+    <input id="answer5" placeholder="Typ het antwoord...">
+    <br>
+    <button id="checkBtn5">Controleer</button>
+    <button id="hintBtn5">Hint</button>
+
+    <div id="result"></div>
+
+    <div id="hintBox5" class="hidden">
+        <p>Alle letters komen uit het echte antwoord.</p>
+    </div>
+
+    <span id="nextArrow5" class="arrow hidden">🏆</span> <!-- Naar eindscherm -->
+</div>
+
+<script>
+// Alleen toegankelijk als Level 4 voltooid
+if(localStorage.getItem("level4") !== "true"){
+    window.location.href = "level4.html";
+}
+
+// Controleer antwoord Level 5
+function checkLevel5(){
+    const correct = "ik ben ontsnapt";
+    const input = document.getElementById("answer5").value.toLowerCase().trim();
+    const result = document.getElementById("result");
+    const arrow = document.getElementById("nextArrow5");
+
+    if(input === correct){
+        result.textContent = "🎉 Je bent ontsnapt!";
+        result.className = "success";
+
+        arrow.classList.remove("hidden");
+        arrow.classList.add("visible");
+        arrow.onclick = function(){ window.location.href = "end.html"; };
+        localStorage.setItem("level5","true"); // opslaan voortgang
+    } else {
+        result.textContent = "❌ Fout";
+        result.className = "error";
+    }
+}
+
+// Hint tonen/verbergen
+function showHint5(){
+    document.getElementById("hintBox5").classList.toggle("hidden");
+}
+
+// Event listeners
+document.getElementById("checkBtn5").addEventListener("click", checkLevel5);
+document.getElementById("hintBtn5").addEventListener("click", showHint5);
+document.getElementById("answer5").addEventListener("keypress", function(e){
+    if(e.key === "Enter") checkLevel5();
+});
+document.getElementById("answer5").focus();
+</script>
+
+</body>
+</html>
