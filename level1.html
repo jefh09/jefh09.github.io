@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="nl">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Escape Room - Level 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="level1-body">
+
+<div class="container level1">
+    <h1>🔐 Level 1</h1>
+    <p>Je bent opgesloten in een geheime repository...</p>
+    <p>Een Romeinse leider gebruikte ooit een simpele manier om berichten te versleutelen.</p>
+    <p>Misschien zijn de letters wel een beetje verschoven?</p>
+
+    <p class="encrypted">Khoor</p> <!-- Versleuteld woord met Caesar cipher -->
+
+    <input type="text" id="answer" placeholder="Voer het wachtwoord in">
+    <button id="checkBtn">Controleer</button> <!-- Controleer antwoord -->
+    <button id="hintBtn">Hint</button> <!-- Laat hint zien -->
+
+    <div id="result"></div> <!-- Resultaat melding -->
+    <div id="hintBox" class="hidden"></div> <!-- Hint box verborgen -->
+
+    <span id="nextArrow" class="arrow hidden">➡️</span> <!-- Pijl naar volgende level -->
+</div>
+
+<script>
+// Reset Level 1 voortgang bij openen
+localStorage.removeItem("level1complete");
+
+// Caesar cipher decrypt functie
+function caesarDecrypt(text, shift) {
+    let result = "";
+    for (let i = 0; i < text.length; i++) {
+        let char = text[i];
+        if (char.match(/[a-z]/i)) {
+            let code = text.charCodeAt(i);
+            let base = (code >= 65 && code <= 90) ? 65 : 97; // Hoofd- of kleine letter
+            result += String.fromCharCode((code - base - shift + 26) % 26 + base);
+        } else {
+            result += char; // Niet-letters blijven hetzelfde
+        }
+    }
+    return result;
+}
+
+// Controleer het antwoord
+function checkAnswer() {
+    const correct = caesarDecrypt("Khoor", 3); // Juiste antwoord = "Hello"
+    const userAnswer = document.getElementById("answer").value;
+    const result = document.getElementById("result");
+    const nextArrow = document.getElementById("nextArrow");
+
+    if (userAnswer.toLowerCase() === correct.toLowerCase()) {
+        result.textContent = "✅ Correct! Klik op de pijl om verder te gaan.";
+        result.className = "success";
+        nextArrow.classList.remove("hidden");
+        nextArrow.classList.add("visible");
+        nextArrow.onclick = () => { window.location.href = "level2.html"; }; // Klikbaar maken
+        localStorage.setItem("level1complete", "true"); // Opslaan progressie
+    } else {
+        result.textContent = "❌ Fout! Probeer opnieuw.";
+        result.className = "error";
+    }
+}
+
+// Toon/verberg hint
+function showHint() {
+    const hintBox = document.getElementById("hintBox");
+    hintBox.classList.toggle("hidden");
+    hintBox.textContent = "Hint: Caesar gebruikte een verschuiving van 3 (III).";
+}
+
+// Event listeners
+document.getElementById("checkBtn").addEventListener("click", checkAnswer);
+document.getElementById("hintBtn").addEventListener("click", showHint);
+document.getElementById("answer").addEventListener("keypress", function (e) {
+    if (e.key === "Enter") checkAnswer();
+});
+document.getElementById("answer").focus(); // Cursor automatisch in input
+</script>
+
+</body>
+</html>
