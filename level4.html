@@ -1,1 +1,86 @@
+<!DOCTYPE html>
+<html lang="nl">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Escape Room - Level 4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="level4-body">
+
+<div class="container level4">
+    <h1>🧩 Level 4</h1>
+    <p>Je vindt een nieuw bericht op het scherm:</p>
+
+    <p class="encrypted">ELTOV</p> <!-- Atbash versleuteld woord -->
+
+    <p>Het lijkt alsof het alfabet is omgekeerd...</p>
+
+    <input type="text" id="answer4" placeholder="Typ het woord...">
+
+    <br>
+
+    <button onclick="checkAnswer()">CHECK</button>
+    <button onclick="showHint()">HINT</button>
+
+    <div id="result"></div>
+
+    <div id="hintBox4" class="hidden">
+        <p><b>Tip:</b> Dit is een Atbash cipher.</p>
+        <p>Het alfabet wordt omgekeerd:</p>
+<pre>
+A ↔ Z 
+B ↔ Y 
+C ↔ X 
+D ↔ W 
+E ↔ V 
+F ↔ U 
+G ↔ T 
+H ↔ S 
+I ↔ R 
+J ↔ Q 
+K ↔ P 
+L ↔ O 
+M ↔ N
+</pre>
+        <p>Het woord dat je zoekt is een dier dat kan vliegen.</p>
+    </div>
+
+    <span id="nextArrow4" class="arrow hidden">➡️</span>
+</div>
+
+<script>
+// Alleen toegankelijk als level 3 voltooid
+if(localStorage.getItem("level3complete") !== "true"){
+    window.location.href = "level3.html";
+}
+
+// Controleer antwoord Level 4
+function checkAnswer(){
+    const correct = "vogel"; // Atbash oplossing
+    const answer = document.getElementById("answer4").value.toLowerCase().trim();
+    const result = document.getElementById("result");
+    const arrow = document.getElementById("nextArrow4");
+
+    if(answer === correct){
+        result.innerHTML = "✅ Correct! Ga naar level 5.";
+        result.className = "success";
+        arrow.classList.remove("hidden");
+        arrow.classList.add("visible");
+        arrow.onclick = function(){ window.location.href = "level5.html"; };
+        localStorage.setItem("level4","true"); // opslaan progressie
+    } else {
+        result.innerHTML = "❌ Dat klopt niet.";
+        result.className = "error";
+    }
+}
+
+// Hint tonen/verbergen
+function showHint(){
+    document.getElementById("hintBox4").classList.toggle("hidden");
+}
+</script>
+
+</body>
+</html>
