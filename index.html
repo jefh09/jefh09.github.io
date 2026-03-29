@@ -1,1 +1,28 @@
+<!DOCTYPE html> <!-- HTML5 documenttype -->
+<html lang="nl"> <!-- Pagina taal is Nederlands -->
 
+<head>
+    <meta charset="UTF-8"> <!-- Tekst codering -->
+    <title>Escape Room</title> <!-- Browser tab titel -->
+    <link rel="stylesheet" href="style.css"> <!-- Koppeling CSS bestand -->
+</head>
+
+<body class="level1-body"> <!-- Klasse voor CSS styling van Level 1 -->
+
+<div class="container"> <!-- Centrale box op het scherm -->
+    <h1>🧩 Escape Room</h1> <!-- Titel van het spel -->
+    <p>Je bent binnengedrongen in een geheime digitale bunker…</p>
+    <p>Los puzzels op, kraak codes en ontsnap voordat het systeem je detecteert.</p>
+    <br>
+    <button id="startBtn">▶ Start spel</button> <!-- Knop om het spel te starten -->
+</div>
+
+<script>
+// Event listener voor start knop
+document.getElementById("startBtn").addEventListener("click", function(){
+    window.location.href = "level1.html"; // Ga naar Level 1
+});
+</script>
+
+</body>
+</html>
