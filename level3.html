@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html lang="nl">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Escape Room - Level 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="level3-body">
+
+<div class="container level3">
+    <h1>📡 Level 3 - Secure Transmission</h1>
+    <p id="typedText"></p> <!-- Tekst die getypt wordt via typeEffect -->
+
+    <p class="encrypted">. ... -.-. .- .--. .</p> <!-- Morse code voor "escape" -->
+
+    <input type="text" id="answer3" placeholder="Decodeer het signaal...">
+    <button id="checkBtn3">ACCESS</button>
+    <button id="hintBtn3">DATABASE</button>
+
+    <div id="result3"></div>
+    <div id="hintBox3" class="hidden">
+<pre>
+A: .-        J: .---      S: ...
+B: -...      K: -.-       T: -
+C: -.-.      L: .-..      U: ..-
+D: -..       M: --        V: ...-
+E: .         N: -.        W: .--
+F: ..-.      O: ---       X: -..-
+G: --.       P: .--.      Y: -.--
+H: ....      Q: --.-      Z: --..
+I: ..        R: .-.
+</pre>
+    </div>
+
+    <span id="finishArrow" class="arrow hidden">➡️</span> <!-- Pijl naar volgende level -->
+</div>
+
+<script>
+// Controle of speler Level 2 voltooid heeft
+if(localStorage.getItem("level2complete") !== "true"){
+    window.location = "level2.html"; // terug naar level 2 als nog niet voltooid
+}
+
+// Type-effect voor intro tekst
+const text = ">> Incoming encrypted transmission...\n>> Decode the signal to escape.";
+let i = 0;
+function typeEffect() {
+    if(i < text.length) {
+        document.getElementById("typedText").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 40); // snelheid type-effect
+    }
+}
+typeEffect();
+
+// Controleer antwoord Level 3 (Morse code)
+function checkLevel3() {
+    const correct = "escape";
+    const userAnswer = document.getElementById("answer3").value.trim().toLowerCase();
+    const result = document.getElementById("result3");
+    const finishArrow = document.getElementById("finishArrow");
+
+    if(userAnswer === correct){
+        result.textContent = "ACCESS GRANTED ✔ Je bent ontsnapt naar level 4!";
+        result.className = "success";
+        finishArrow.classList.remove("hidden");
+        finishArrow.classList.add("visible");
+        finishArrow.onclick = () => { window.location.href = "level4.html"; };
+        localStorage.setItem("level3complete","true"); // voortgang opslaan
+    } else {
+        result.textContent = "ACCESS DENIED ✖";
+        result.className = "error";
+    }
+}
+
+// Toon/verberg hint
+function showHint3(){
+    document.getElementById("hintBox3").classList.toggle("hidden");
+}
+
+// Event listeners
+document.getElementById("checkBtn3").addEventListener("click", checkLevel3);
+document.getElementById("hintBtn3").addEventListener("click", showHint3);
+document.getElementById("answer3").addEventListener("keypress", function(e){
+    if(e.key === "Enter") checkLevel3();
+});
+document.getElementById("answer3").focus();
+</script>
+
+</body>
+</html>
