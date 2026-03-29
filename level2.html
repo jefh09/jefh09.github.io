@@ -1,1 +1,80 @@
+<!DOCTYPE html>
+<html lang="nl">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Escape Room - Level 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="level2-body">
+
+<div class="container level2">
+    <h1>💾 Level 2</h1>
+    <p>Zet deze binaire code om naar tekst (ASCII):</p>
+    <p class="binary">01001000 01000101 01001100 01010000</p> <!-- Binaire code voor "HELP" -->
+
+    <input type="text" id="answer2" placeholder="Wat is het woord?">
+    <button id="checkBtn2">Controleer</button>
+    <button id="hintBtn2">Hint</button>
+
+    <div id="result2"></div>
+    <div id="hintBox2" class="hidden">
+<pre>
+A: 01000001   N: 01001110
+B: 01000010   O: 01001111
+C: 01000011   P: 01010000
+D: 01000100   Q: 01010001
+E: 01000101   R: 01010010
+F: 01000110   S: 01010011
+G: 01000111   T: 01010100
+H: 01001000   U: 01010101
+I: 01001001   V: 01010110
+J: 01001010   W: 01010111
+K: 01001011   X: 01011000
+L: 01001100   Y: 01011001
+M: 01001101   Z: 01011010
+</pre>
+    </div>
+
+    <span id="nextArrow2" class="arrow hidden">➡️</span>
+</div>
+
+<script>
+// Check of speler Level 1 voltooid heeft
+if (localStorage.getItem("level1complete") !== "true") {
+    window.location = "level1.html";
+}
+
+// Controleer antwoord Level 2
+function checkLevel2() {
+    const correct = "help"; // ASCII decoded
+    const userAnswer = document.getElementById("answer2").value.trim().toLowerCase();
+    const result = document.getElementById("result2");
+    const nextArrow = document.getElementById("nextArrow2");
+
+    if (userAnswer === correct) {
+        result.textContent = "🎉 Goed! Ga naar Level 3.";
+        result.className = "success";
+        nextArrow.classList.remove("hidden");
+        nextArrow.classList.add("visible");
+        nextArrow.onclick = () => { window.location.href = "level3.html"; };
+        localStorage.setItem("level2complete", "true");
+    } else {
+        result.textContent = "❌ Dat klopt niet.";
+        result.className = "error";
+    }
+}
+
+// Toon/verberg hint
+function showHint2() { document.getElementById("hintBox2").classList.toggle("hidden"); }
+
+// Event listeners
+document.getElementById("checkBtn2").addEventListener("click", checkLevel2);
+document.getElementById("hintBtn2").addEventListener("click", showHint2);
+document.getElementById("answer2").addEventListener("keypress", function (e) { if (e.key === "Enter") checkLevel2(); });
+document.getElementById("answer2").focus();
+</script>
+
+</body>
+</html>
